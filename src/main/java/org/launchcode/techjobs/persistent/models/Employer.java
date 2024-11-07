@@ -2,12 +2,14 @@ package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
 public class Employer extends AbstractEntity {
 
     @NotEmpty
+    @NotNull
     @Size(min = 2, max = 100)
     private String location;
 
