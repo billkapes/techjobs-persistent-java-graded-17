@@ -1,6 +1,7 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import jakarta.validation.Valid;
+import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
@@ -44,6 +45,7 @@ public class HomeController {
 	model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         return "add";
     }
 
@@ -57,8 +59,17 @@ public class HomeController {
             return "add";
         }
 
+        Optional<Employer> result = employerRepository.findById(employerId);
+        if (!result.isEmpty()) {
+            Employer employer = result.get();
+            newJob.setEmployer(employer);
+        }
+
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+
         newJob.setSkills(skillObjs);
+
+        jobRepository.save(newJob);
 
         return "redirect:";
     }

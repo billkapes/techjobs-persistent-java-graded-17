@@ -15,7 +15,7 @@ public class Employer extends AbstractEntity {
 
     @NotEmpty
     @NotNull
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 150)
     private String location;
 
     @OneToMany
